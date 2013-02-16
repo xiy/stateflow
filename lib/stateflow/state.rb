@@ -24,7 +24,7 @@ module Stateflow
       when Symbol, String
         base.send(action)
       when Proc
-        action.call(base)
+        base.instance_exec(&action)
       end
     end
   end
