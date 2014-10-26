@@ -9,7 +9,7 @@ module Stateflow
 
       module ClassMethods
         def add_scope(state)
-          scope state.name, where(:state => state.name.to_s)
+          scope state.name.to_sym, -> { where(:state => state.name.to_s) }
         end
       end
 
@@ -23,7 +23,7 @@ module Stateflow
       end
 
       def ensure_initial_state
-        send("#{machine.state_column.to_s}=", current_state.name.to_s) if send(machine.state_column.to_s).blank?
+        send("#{machine.state_column}=", current_state.name.to_s) if send(machine.state_column.to_s).blank?
       end
     end
   end
